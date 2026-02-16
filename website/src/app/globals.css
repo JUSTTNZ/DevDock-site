@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-surface-400 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+}
+
+@layer components {
+  .glow-blue {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.15),
+      0 0 80px rgba(59, 130, 246, 0.05);
+  }
+
+  .glow-border {
+    position: relative;
+  }
+
+  .glow-border::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.4),
+      rgba(16, 185, 129, 0.2),
+      rgba(59, 130, 246, 0.1)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-xl border border-white/10;
+    background: rgba(26, 26, 26, 0.6);
+  }
+
+  .light .glass-card {
+    @apply border-gray-200/60;
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-emerald-400;
+  }
+
+  .dot-pattern {
+    background-image: radial-gradient(
+      rgba(59, 130, 246, 0.15) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+  }
+}
+
+/* Syntax highlighting overrides */
+pre[class*="language-"] {
+  @apply rounded-xl !important;
+}
+
+code[class*="language-"] {
+  @apply font-mono text-sm !important;
+}
