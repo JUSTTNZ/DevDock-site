@@ -72,7 +72,7 @@ const steps = [
   {
     number: "02",
     title: "Add Services",
-    description: "Configure your local dev services — name, command, working directory, port, and restart behavior.",
+    description: "Configure your local dev services - name, command, working directory, port, and restart behavior.",
   },
   {
     number: "03",
@@ -86,7 +86,7 @@ const screenshots = [
   { label: "Logs", description: "Unified log viewer for all services", image: "/Logspage.png" },
   { label: "Settings", description: "Configure DevDock to your liking", image: "/Settingpage.png" },
   { label: "Dashboard (Idle)", description: "Dashboard ready for your services", image: "/Dashboardpage.png" },
-  { label: "Services (Empty)", description: "Clean start — add your first service", image: "/NS-servicepage.png" },
+  { label: "Services (Empty)", description: "Clean start - add your first service", image: "/NS-servicepage.png" },
   { label: "Logs (Empty)", description: "Logs appear as services run", image: "/NS-logspage.png" },
 ];
 

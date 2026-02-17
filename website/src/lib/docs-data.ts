@@ -407,9 +407,9 @@ The backoff timer resets when:
 ### Crash Detection
 
 DevDock distinguishes between:
-- **Intentional stops**: When you click Stop — no restart triggered
-- **Crashes**: When the process exits with a non-zero code — auto-restart triggered
-- **Graceful exits**: When the process exits with code 0 — behavior depends on your configuration`,
+- **Intentional stops**: When you click Stop - no restart triggered
+- **Crashes**: When the process exits with a non-zero code - auto-restart triggered
+- **Graceful exits**: When the process exits with code 0 - behavior depends on your configuration`,
       },
       {
         id: "process-monitoring",
@@ -524,7 +524,7 @@ We welcome contributions to DevDock! Here's how to get started.
 ### Development Guidelines
 
 - Follow the existing code style and conventions
-- Write TypeScript — avoid \`any\` types where possible
+- Write TypeScript - avoid \`any\` types where possible
 - Keep components small and focused
 - Test your changes on at least one platform before submitting
 
