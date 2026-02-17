@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import FeatureCard from "@/components/FeatureCard";
 import DownloadButton from "@/components/DownloadButton";
 import { detectOS, RELEASES_URL, GITHUB_URL } from "@/lib/utils";
@@ -92,10 +92,22 @@ const screenshots = [
 
 export default function HomePage() {
   const [os, setOs] = useState<"windows" | "macos" | "linux">("windows");
+  const [lightbox, setLightbox] = useState<{ image: string; label: string } | null>(null);
 
   useEffect(() => {
     setOs(detectOS());
   }, []);
+
+  const closeLightbox = useCallback(() => setLightbox(null), []);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [lightbox, closeLightbox]);
 
   return (
     <>
@@ -299,7 +311,8 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="rounded-2xl overflow-hidden bg-white dark:bg-surface-100 border border-gray-200 dark:border-white/5 hover:border-brand-500/30 transition-all group"
+                onClick={() => setLightbox({ image: shot.image, label: shot.label })}
+                className="rounded-2xl overflow-hidden bg-white dark:bg-surface-100 border border-gray-200 dark:border-white/5 hover:border-brand-500/30 transition-all group cursor-pointer"
               >
                 <div className="aspect-video bg-surface-200 overflow-hidden">
                   <img
@@ -362,6 +375,44 @@ export default function HomePage() {
           </p>
         </div>
       </section>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeLightbox}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/60 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-5xl w-full"
+            >
+              <button
+                onClick={closeLightbox}
+                className="absolute -top-10 right-0 text-white/70 hover:text-white text-sm flex items-center gap-1 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Close
+              </button>
+              <img
+                src={lightbox.image}
+                alt={lightbox.label}
+                className="w-full h-auto rounded-xl shadow-2xl"
+              />
+              <p className="text-center text-white/80 text-sm mt-3 font-medium">{lightbox.label}</p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
