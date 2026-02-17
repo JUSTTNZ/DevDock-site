@@ -82,10 +82,12 @@ const steps = [
 ];
 
 const screenshots = [
-  { label: "Dashboard", description: "Real-time overview with live charts" },
-  { label: "Services", description: "Manage all your dev services" },
-  { label: "Logs", description: "Unified log viewer for all services" },
-  { label: "Settings", description: "Configure DevDock to your liking" },
+  { label: "Services", description: "Manage all your dev services", image: "/Servicepage.png" },
+  { label: "Logs", description: "Unified log viewer for all services", image: "/Logspage.png" },
+  { label: "Settings", description: "Configure DevDock to your liking", image: "/Settingpage.png" },
+  { label: "Dashboard (Idle)", description: "Dashboard ready for your services", image: "/Dashboardpage.png" },
+  { label: "Services (Empty)", description: "Clean start — add your first service", image: "/NS-servicepage.png" },
+  { label: "Logs (Empty)", description: "Logs appear as services run", image: "/NS-logspage.png" },
 ];
 
 export default function HomePage() {
@@ -175,14 +177,12 @@ export default function HomePage() {
                     <div className="w-3 h-3 rounded-full bg-green-500/80" />
                     <span className="ml-3 text-xs text-gray-500 font-mono">DevDock</span>
                   </div>
-                  {/* Placeholder image area */}
-                  <div className="aspect-[3/2] bg-gradient-to-br from-surface-100 to-surface-200 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-6xl mb-4">&#9889;</div>
-                      <p className="text-gray-500 text-sm">Dashboard Screenshot</p>
-                      <p className="text-gray-600 text-xs mt-1">1200 &times; 800</p>
-                    </div>
-                  </div>
+                  {/* Dashboard screenshot */}
+                  <img
+                    src="/NS-Dashboardpage.png"
+                    alt="DevDock Dashboard with active services"
+                    className="w-full h-auto"
+                  />
                 </div>
               </div>
             </div>
@@ -291,7 +291,7 @@ export default function HomePage() {
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {screenshots.map((shot, i) => (
               <motion.div
                 key={shot.label}
@@ -301,11 +301,12 @@ export default function HomePage() {
                 transition={{ delay: i * 0.1 }}
                 className="rounded-2xl overflow-hidden bg-white dark:bg-surface-100 border border-gray-200 dark:border-white/5 hover:border-brand-500/30 transition-all group"
               >
-                <div className="aspect-video bg-gradient-to-br from-gray-100 dark:from-surface-200 to-gray-50 dark:to-surface-300 flex items-center justify-center">
-                  <div className="text-center">
-                    <p className="text-gray-400 text-sm font-medium">{shot.label}</p>
-                    <p className="text-gray-500 text-xs mt-1">Screenshot Placeholder</p>
-                  </div>
+                <div className="aspect-video bg-surface-200 overflow-hidden">
+                  <img
+                    src={shot.image}
+                    alt={shot.label}
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
                 <div className="px-5 py-4">
                   <h3 className="font-semibold text-gray-900 dark:text-white">{shot.label}</h3>
